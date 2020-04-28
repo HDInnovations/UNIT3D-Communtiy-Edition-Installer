@@ -21,19 +21,19 @@ const steps = [
 ];
 
 program
-  .version('0.1.0', '-v, --version')
+  .version('1.0.0', '-v, --version')
   .option('--debug', 'Run installer in debug mode to show additional output', null, false)
   .option('--disable-ssl', 'Disable SSL', null, false)
   .option('--test', 'Run a test with preconfigured values', null, false)
   .parse(process.argv);
 
-io.info(figlet.textSync('UNIT3D', {
+io.info(figlet.textSync('UNIT3D Installer', {
   font: 'Big Money-se',
-  horizontalLayout: 'default',
+  horizontalLayout: 'fitted',
   verticalLayout: 'default',
 }));
 
-io.info(`Installer Version: v0.1.0`);
+io.info(`Version: v1.0.0`);
 
 const run = async () => {
   for (let file of steps) {
