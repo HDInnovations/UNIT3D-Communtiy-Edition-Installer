@@ -1,12 +1,12 @@
 {
   "name": "unit3d_installer",
   "version": "0.1.0",
-  "description": "UNIT3D Platform Installer",
+  "description": "UNIT3D Community Edition Installer",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Poppabear",
+  "author": "Poppabear, HDVinnie",
   "license": "MIT",
   "dependencies": {
     "chalk": "^2.4.2",
