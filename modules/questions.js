@@ -173,10 +173,10 @@ module.exports = async (config, program) => {
       },
       {
         type: 'input',
-        name: 'omdb_key',
-        message: 'OMDB API Key ?',
-        default () { return program.test ? '12345678' : ''; },
-        validate (input) { return validate.Length(input, 8); },
+        name: 'igdb_key',
+        message: 'IGDB API Key ?',
+        default () { return program.test ? '12345678901234567890123456789012' : ''; },
+        validate (input) { return validate.Length(input, 32); },
       },
     ],
   };
