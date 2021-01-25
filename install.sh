@@ -23,8 +23,8 @@ success "OK"
 
 info "Installing NodeJS and NPM ..."
 curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
-sudo apt-get install -y nodejs > /dev/null
-npm install
+sudo apt-get install -y -qq nodejs > "/dev/null" 2>&1
+npm install > "/dev/null" 2>&1
 success "OK"
 
 header "Launching The Installer ..."
