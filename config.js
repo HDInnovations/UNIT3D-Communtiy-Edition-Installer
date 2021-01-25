@@ -12,7 +12,6 @@ module.exports = {
   'repositories': [
     'ppa:nginx/stable',
     'ppa:ondrej/php',
-    'ppa:certbot/certbot',
   ],
 
   /* These packages are installed GLOBALLY. */
@@ -23,7 +22,7 @@ module.exports = {
   'packages': [
     'ufw',
     'debconf-utils',
-    'python-certbot-nginx',
+    'python3-certbot-nginx',
     'php-pear',
     'php8.0-curl',
     'php8.0-dev',
