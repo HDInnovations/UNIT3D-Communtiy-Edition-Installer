@@ -40,7 +40,9 @@ module.exports = async (config, program) => {
   io.info('Setting permissions ...');
   io.spawn('chown', ['mysql:mysql', '/etc/mysql/my.cnf']);
   io.spawn('chown', ['mysql:mysql', '/var/lib/mysql']);
-  fs.chmod('/etc/mysql/my.cnf', 600);
+  fs.chmod('/etc/mysql/my.cnf', 0o600, () => { 
+    fs.writeFileSync('/etc/mysql/my.cnf', "This file has now been edited."); 
+  });
 
   io.info('Reading "mysql/.my.cnf" stub file ...');
   const myStub = stub.ReadFile('mysql/.my.cnf');
