@@ -6,10 +6,10 @@ module.exports = async (config, program) => {
 
   io.header('Questions Module');
   
-  io.info('All Passwords Must Be A Minimum Of 8 Characters In Lenght.');
-  io.info('All Passwords Must Contain One Uppercase Alphabetical Character.');
-  io.info('All Passwords Must Contain One Lowercase Alphabetical Character.');
-  io.info('All Passwords Must Contain One Numerical Character.');
+  io.warning('All Passwords Must Be A Minimum Of 8 Characters In Lenght.');
+  io.warning('All Passwords Must Contain One Uppercase Alphabetical Character.');
+  io.warning('All Passwords Must Contain One Lowercase Alphabetical Character.');
+  io.warning('All Passwords Must Contain One Numerical Character.');
 
   /* NOTE: The `name` properties of these objects MUST match the value in the stubs */
   const questions = {
