@@ -22,7 +22,7 @@ fi
 success "OK"
 
 info "Installing NodeJS and NPM ..."
-curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash - | grep -q ''
 sudo apt-get install -y -qq nodejs > "/dev/null" 2>&1
 npm install > "/dev/null" 2>&1
 success "OK"
