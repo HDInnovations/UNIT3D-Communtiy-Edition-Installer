@@ -52,10 +52,10 @@ module.exports.LimitSpecialChars = (input) => {
 };
 
 module.exports.Domain = (input) => {
-  const domainCheck = new RegExp('^[a-zA-Z0-9-.]{1,}(com|net|org|me|xyz|io)$');
+  const domainCheck = new RegExp('^[a-zA-Z0-9-.]{1,}(com|net|org|me|xyz|io|site)$');
 
   if (!domainCheck.test(input))
-    return 'Not a valid domain (ie: domain.com) [com|net|org|me|xyz|io]';
+    return 'Not a valid domain (ie: domain.com) [com|net|org|me|xyz|io|site]';
 
   return true;
 };
