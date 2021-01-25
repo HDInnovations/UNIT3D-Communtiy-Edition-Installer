@@ -19,7 +19,7 @@ module.exports = async (config, program) => {
       {
         type: 'input',
         name: 'fqdn',
-        message: 'The FQDN for this server ?',
+        message: 'The domain for this server ?',
         default (answers) { return answers.server_name.replace(' ', '-').toLowerCase() + '.com'; },
         validate (input) { return validate.Domain(input); },
       },
