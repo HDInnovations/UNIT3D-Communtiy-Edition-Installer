@@ -21,9 +21,10 @@ if [[ $update == *" NO_PUBKEY "* ]]; then
 fi
 success "OK"
 
-info "Installing NodeJS ..."
-curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash - | grep -q ''
-apt-get install -qq nodejs > /dev/null
+info "Installing NodeJS and NPM ..."
+curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+sudo apt-get install -y nodejs > /dev/null
+npm install
 success "OK"
 
 header "Launching The Installer ..."
