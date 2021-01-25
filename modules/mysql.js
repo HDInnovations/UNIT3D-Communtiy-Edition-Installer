@@ -69,7 +69,9 @@ module.exports = async (config, program) => {
   io.spawn('mysqladmin', ['-u', 'root', 'password', mysql_root_pass]);
 
   io.info('Setting permissions on "/root/.my.cnf" ...');
-  fs.chmod('/root/.my.cnf', 600);
+    fs.chmod('/root/.my.cnf', 0o600, () => { 
+    fs.writeFileSync('/root/.my.cnf', "This file has now been edited."); 
+  });
 
   const mysqlCmds = [
     `DROP USER IF EXISTS '${db_user}'@'localhost'`,
