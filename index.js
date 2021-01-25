@@ -27,12 +27,7 @@ program
   .option('--test', 'Run a test with preconfigured values', null, false)
   .parse(process.argv);
 
-io.info(figlet.textSync('UNIT3D Community Edition Installer', {
-  font: 'Big Money-se',
-  horizontalLayout: 'fitted',
-  verticalLayout: 'default',
-}));
-
+io.info(`UNIT3D Community Edition Installer`);
 io.info(`Version: v1.0.0`);
 
 const run = async () => {
