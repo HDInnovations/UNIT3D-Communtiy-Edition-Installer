@@ -79,7 +79,7 @@ module.exports = async (config, program) => {
     `CREATE DATABASE ${db_name}`,
     `CREATE USER '${db_user}'@'localhost' IDENTIFIED BY '${db_pass}'`,
     `GRANT ALL PRIVILEGES ON ${db_name} . * TO '${db_user}'@'localhost'`,
-    `UPDATE mysql.user SET authentication_string=PASSWORD('${mysql_root_pass}') WHERE User='root'`,
+    `ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '$mysql_root_pass`
       `DELETE
        FROM mysql.user
        WHERE User = ''`,
