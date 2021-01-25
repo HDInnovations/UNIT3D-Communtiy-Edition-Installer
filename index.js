@@ -27,7 +27,7 @@ program
   .option('--test', 'Run a test with preconfigured values', null, false)
   .parse(process.argv);
 
-io.info(figlet.textSync('UNIT3D Installer', {
+io.info(figlet.textSync('UNIT3D Community Edition Installer', {
   font: 'Big Money-se',
   horizontalLayout: 'fitted',
   verticalLayout: 'default',
