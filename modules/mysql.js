@@ -31,7 +31,7 @@ module.exports = async (config, program) => {
   }
 
   io.info('Setting up MySQL ...');
-  if (!dist.includes('16.04') && !dist.includes('18.04')) {
+  if (!dist.includes('18.04') && !dist.includes('20.04')) {
     io.warning(`Your OS version (${dist}) is old. Running mysql_install_db ...`);
     const data = io.spawn('mysql_install_db');
     if (program.debug) io.debug(data);
@@ -41,12 +41,6 @@ module.exports = async (config, program) => {
   io.spawn('chown', ['mysql:mysql', '/etc/mysql/my.cnf']);
   io.spawn('chown', ['mysql:mysql', '/var/lib/mysql']);
   fs.chmod('/etc/mysql/my.cnf', 600);
-
-  if (dist.includes('18.04')) {
-    io.info('Securing MySQL ...');
-    const data = io.spawn('mysqld', ['--initialize-insecure', '--explicit_defaults_for_timestamp']);
-    if (program.debug) io.debug(data);
-  }
 
   io.info('Reading "mysql/.my.cnf" stub file ...');
   const myStub = stub.ReadFile('mysql/.my.cnf');
