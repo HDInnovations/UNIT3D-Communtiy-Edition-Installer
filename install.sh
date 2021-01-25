@@ -22,7 +22,7 @@ fi
 success "OK"
 
 info "Installing NodeJS ..."
-curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash - | grep -q ''
+curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash - | grep -q ''
 apt-get install -qq nodejs > /dev/null
 success "OK"
 
