@@ -1,13 +1,21 @@
 {
-  "name": "unit3d_installer",
-  "version": "0.1.0",
-  "description": "UNIT3D Community Edition Installer",
-  "main": "index.js",
+  "name": "unit3d_ce_installer",
+  "description": "A Automated Installer For UNIT3D Community Edition",
+  "version": "1.0.0",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Poppabear, HDVinnie",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HDInnovations/UNIT3D-Communtiy-Edition-Installer.git"
+  },
+  "keywords": [],
+  "author": "HDVinnie, Papabear",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/HDInnovations/UNIT3D-Communtiy-Edition-Installer/issues"
+  },
+  "homepage": "https://github.com/HDInnovations/UNIT3D-Communtiy-Edition-Installer",
   "dependencies": {
     "chalk": "^2.4.2",
     "commander": "^2.19.0",
