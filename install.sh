@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 export DEBIAN_FRONTEND=noninteractive
 
-source tools/colors.sh
+source ./src/tools/colors.sh
 
 rm -rf /var/lib/dpkg/lock
 rm -rf /var/cache/debconf/*.*
@@ -29,4 +29,4 @@ success "OK"
 
 header "Launching The Installer ..."
 
-node index.js $@
+node 'build/installer.js' $@
