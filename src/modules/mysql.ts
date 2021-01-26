@@ -2,8 +2,9 @@ import { copyFileSync, chmod, writeFileSync } from 'fs';
 import { header, info, warning, spawn, debug, error, success } from '../tools/io';
 import { totalMemory, distVersion } from '../tools/helpers';
 import { ReadFile, Replace, WriteFile } from '../tools/stub';
+import {ConfigI} from "../config";
 
-export default async (config, program) => {
+export default async (config: ConfigI, program: any) => {
 
   header('MySQL Module');
 
@@ -38,8 +39,8 @@ export default async (config, program) => {
   }
 
   info('Setting permissions ...');
-  spawn('chown', ['mysql:mysql', '/etc/mysql/my.cnf']);
-  spawn('chown', ['mysql:mysql', '/var/lib/mysql']);
+  spawn('chown', ['mysql:mysql', '/etc/mysql/my.cnf'] as never[]);
+  spawn('chown', ['mysql:mysql', '/var/lib/mysql'] as never[]);
   chmod('/etc/mysql/my.cnf', 0o600, () => { 
     writeFileSync('/etc/mysql/my.cnf', "This file has now been edited."); 
   });
@@ -60,13 +61,13 @@ export default async (config, program) => {
   }
 
   info('Running "update-rc.d" ...');
-  spawn('update-rc.d', ['mysql', 'defaults']);
+  spawn('update-rc.d', ['mysql', 'defaults'] as never[]);
 
   info('Starting mysql service ...');
-  spawn('service', ['mysql', 'start']);
+  spawn('service', ['mysql', 'start'] as never[]);
 
   info('Running "mysqladmin" ...');
-  spawn('mysqladmin', ['-u', 'root', 'password', mysql_root_pass]);
+  spawn('mysqladmin', ['-u', 'root', 'password', mysql_root_pass] as never[]);
 
   info('Setting permissions on "/root/.my.cnf" ...');
     chmod('/root/.my.cnf', 0o600, () => { 
@@ -97,7 +98,7 @@ export default async (config, program) => {
 
   for (const cmd of mysqlCmds) {
     if (program.debug) debug(`Executing "${cmd}" ...`);
-    spawn('mysql', ['-e', cmd]);
+    spawn('mysql', ['-e', cmd] as never[]);
   }
 
   return success('MySQL Module Completed Successfully');

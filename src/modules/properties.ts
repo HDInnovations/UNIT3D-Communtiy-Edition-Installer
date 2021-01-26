@@ -1,12 +1,13 @@
 import { header, info, error, success } from '../tools/io';
+import {ConfigI} from "../config";
 
-export default async (config, program) => {
+export default function (config: ConfigI, _program: any) {
   header('Properties Module');
 
   /* repositories */
   info('Checking repositories property exists in config ...');
   if (!config.repositories) {
-    error('"repositories" property missing from config.js');
+    error('"repositories" property missing from config.ts');
     process.exit(1);
   }
 
@@ -19,7 +20,7 @@ export default async (config, program) => {
   /* packages */
   info('Checking packages property exists in config ...');
   if (!config.packages) {
-    error('"packages" property missing from config.js');
+    error('"packages" property missing from config.ts');
     process.exit(1);
   }
 

@@ -1,6 +1,7 @@
 import { header, info, spawn, debug, success } from '../tools/io';
+import {ConfigI} from "../config";
 
-export default async (config, program) => {
+export default async (config: ConfigI, program: any) => {
   header('Packages Module');
 
   config.packages.forEach(value => {
@@ -9,7 +10,7 @@ export default async (config, program) => {
       'install',
       '-y',
       value
-    ]);
+    ] as never[]);
 
     if (program.debug) {
       debug(data);
