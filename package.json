@@ -1,6 +1,6 @@
 {
-  "name": "unit3d_installer",
-  "version": "0.1.0",
+  "name": "unit3d_ce_installer",
+  "version": "1.0.0",
   "description": "UNIT3D Community Edition Installer",
   "main": "src/index.ts",
   "type": "module",
@@ -9,6 +9,14 @@
     "watch": "webpack w",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HDInnovations/UNIT3D-Communtiy-Edition-Installer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/HDInnovations/UNIT3D-Communtiy-Edition-Installer/issues"
+  },
+  "homepage": "https://github.com/HDInnovations/UNIT3D-Communtiy-Edition-Installer",
   "author": "Poppabear, HDVinnie",
   "license": "MIT",
   "dependencies": {
