@@ -1,8 +1,8 @@
 /* todo: make sure every property in this file is validated through the properties module */
-const validate = require('./tools/validators');
-const helper = require('./tools/helpers');
+import validate from './tools/validators';
+import helper from './tools/helpers';
 
-module.exports = {
+export default {
   /* Main */
   'github': 'https://github.com/HDInnovations/UNIT3D-Communtiy-Edition.git',
   'web-user': 'www-data',

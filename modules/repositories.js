@@ -1,13 +1,13 @@
-const io = require('../tools/io');
+import { header, info, spawn, debug, success } from '../tools/io';
 
-module.exports = async (config, program) => {
-  io.header('Repositories Module');
+export default async (config, program) => {
+  header('Repositories Module');
 
   config.repositories.forEach(value => {
-    io.info(`Adding ${value} repository ...`);
-    const data = io.spawn('add-apt-repository', ['-y', value]);
-    if (program.debug) io.debug(data);
+    info(`Adding ${value} repository ...`);
+    const data = spawn('add-apt-repository', ['-y', value]);
+    if (program.debug) debug(data);
   });
 
-  return io.success('Repositories Module Completed Successfully');
+  return success('Repositories Module Completed Successfully');
 };

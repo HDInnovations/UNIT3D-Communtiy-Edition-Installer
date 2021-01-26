@@ -1,11 +1,11 @@
-const fs = require('fs');
-const io = require('../tools/io');
-const {totalMemory, distVersion} = require('../tools/helpers');
-const stub = require('../tools/stub');
+import { copyFileSync, chmod, writeFileSync } from 'fs';
+import { header, info, warning, spawn, debug, error, success } from '../tools/io';
+import { totalMemory, distVersion } from '../tools/helpers';
+import { ReadFile, Replace, WriteFile } from '../tools/stub';
 
-module.exports = async (config, program) => {
+export default async (config, program) => {
 
-  io.header('MySQL Module');
+  header('MySQL Module');
 
   const dist = distVersion();
   const mysql_root_pass = config.answers.mysql_root_pass;
@@ -15,62 +15,62 @@ module.exports = async (config, program) => {
 
   const mysql_dir = config.mysql_dir;
 
-  io.info('Checking System Memory ...');
+  info('Checking System Memory ...');
   switch (true) {
     case (totalMemory() >= 1200000 && totalMemory() < 3900000):
-      io.info('Configuring MySQL for a medium sized server ...');
-      fs.copyFileSync('./resources/mysql/my-medium.cnf', `${mysql_dir}/my.cnf`);
+      info('Configuring MySQL for a medium sized server ...');
+      copyFileSync('./resources/mysql/my-medium.cnf', `${mysql_dir}/my.cnf`);
       break;
     case (totalMemory() >= 3900000):
-      io.info('Configuring MySQL for a large sized server ...');
-      fs.copyFileSync('./resources/mysql/my-large.cnf', `${mysql_dir}/my.cnf`);
+      info('Configuring MySQL for a large sized server ...');
+      copyFileSync('./resources/mysql/my-large.cnf', `${mysql_dir}/my.cnf`);
       break;
     default:
-      io.warning('Configuring MySQL for a small sized server ...');
-      fs.copyFileSync('./resources/mysql/my-small.cnf', `${mysql_dir}/my.cnf`);
+      warning('Configuring MySQL for a small sized server ...');
+      copyFileSync('./resources/mysql/my-small.cnf', `${mysql_dir}/my.cnf`);
   }
 
-  io.info('Setting up MySQL ...');
+  info('Setting up MySQL ...');
   if (!dist.includes('18.04') && !dist.includes('20.04')) {
-    io.warning(`Your OS version (${dist}) is old. Running mysql_install_db ...`);
-    const data = io.spawn('mysql_install_db');
-    if (program.debug) io.debug(data);
+    warning(`Your OS version (${dist}) is old. Running mysql_install_db ...`);
+    const data = spawn('mysql_install_db');
+    if (program.debug) debug(data);
   }
 
-  io.info('Setting permissions ...');
-  io.spawn('chown', ['mysql:mysql', '/etc/mysql/my.cnf']);
-  io.spawn('chown', ['mysql:mysql', '/var/lib/mysql']);
-  fs.chmod('/etc/mysql/my.cnf', 0o600, () => { 
-    fs.writeFileSync('/etc/mysql/my.cnf', "This file has now been edited."); 
+  info('Setting permissions ...');
+  spawn('chown', ['mysql:mysql', '/etc/mysql/my.cnf']);
+  spawn('chown', ['mysql:mysql', '/var/lib/mysql']);
+  chmod('/etc/mysql/my.cnf', 0o600, () => { 
+    writeFileSync('/etc/mysql/my.cnf', "This file has now been edited."); 
   });
 
-  io.info('Reading "mysql/.my.cnf" stub file ...');
-  const myStub = stub.ReadFile('mysql/.my.cnf');
+  info('Reading "mysql/.my.cnf" stub file ...');
+  const myStub = ReadFile('mysql/.my.cnf');
 
-  io.info('Preparing stub file with user specified values ...');
-  const mycnf = stub.Replace({
+  info('Preparing stub file with user specified values ...');
+  const mycnf = Replace({
     'mysql_root_pass': mysql_root_pass
   }, myStub);
 
-  io.info('Writing to "/root/.my.cnf" ...');
-  if (!stub.WriteFile('/root/.my.cnf', mycnf)) {
-    io.error('Writing /root/.my.cnf FAILED. Please report this bug!');
-    io.error('You will likely need to reinstall your OS and try again after receiving support!');
+  info('Writing to "/root/.my.cnf" ...');
+  if (!WriteFile('/root/.my.cnf', mycnf)) {
+    error('Writing /root/.my.cnf FAILED. Please report this bug!');
+    error('You will likely need to reinstall your OS and try again after receiving support!');
     process.exit(1);
   }
 
-  io.info('Running "update-rc.d" ...');
-  io.spawn('update-rc.d', ['mysql', 'defaults']);
+  info('Running "update-rc.d" ...');
+  spawn('update-rc.d', ['mysql', 'defaults']);
 
-  io.info('Starting mysql service ...');
-  io.spawn('service', ['mysql', 'start']);
+  info('Starting mysql service ...');
+  spawn('service', ['mysql', 'start']);
 
-  io.info('Running "mysqladmin" ...');
-  io.spawn('mysqladmin', ['-u', 'root', 'password', mysql_root_pass]);
+  info('Running "mysqladmin" ...');
+  spawn('mysqladmin', ['-u', 'root', 'password', mysql_root_pass]);
 
-  io.info('Setting permissions on "/root/.my.cnf" ...');
-    fs.chmod('/root/.my.cnf', 0o600, () => { 
-    fs.writeFileSync('/root/.my.cnf', "This file has now been edited."); 
+  info('Setting permissions on "/root/.my.cnf" ...');
+    chmod('/root/.my.cnf', 0o600, () => { 
+    writeFileSync('/root/.my.cnf', "This file has now been edited."); 
   });
 
   const mysqlCmds = [
@@ -96,9 +96,9 @@ module.exports = async (config, program) => {
   ];
 
   for (const cmd of mysqlCmds) {
-    if (program.debug) io.debug(`Executing "${cmd}" ...`);
-    io.spawn('mysql', ['-e', cmd]);
+    if (program.debug) debug(`Executing "${cmd}" ...`);
+    spawn('mysql', ['-e', cmd]);
   }
 
-  return io.success('MySQL Module Completed Successfully');
+  return success('MySQL Module Completed Successfully');
 };

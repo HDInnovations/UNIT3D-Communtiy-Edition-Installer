@@ -1,17 +1,17 @@
-const io = require('../tools/io');
+import { header, info, spawn, debug, success } from '../tools/io';
 
-module.exports = async (config, program) => {
+export default async (config, program) => {
 
-  io.header('Composer Module');
+  header('Composer Module');
 
   const command = 'php -r "readfile(\'http://getcomposer.org/installer\');" | sudo php -- --install-dir=/usr/bin/ --filename=composer';
 
-  io.info('Installing composer ...');
-  const data = io.spawn('sh', ['-c', command]);
+  info('Installing composer ...');
+  const data = spawn('sh', ['-c', command]);
 
-  if (program.debug) io.debug(data);
+  if (program.debug) debug(data);
 
-  return io.success('Composer Module Completed Successfully');
+  return success('Composer Module Completed Successfully');
 };
 
 

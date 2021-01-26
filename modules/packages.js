@@ -1,20 +1,20 @@
-const io = require('../tools/io');
+import { header, info, spawn, debug, success } from '../tools/io';
 
-module.exports = async (config, program) => {
-  io.header('Packages Module');
+export default async (config, program) => {
+  header('Packages Module');
 
   config.packages.forEach(value => {
-    io.info(`Installing ${value} ...`);
-    const data = io.spawn('apt-get', [
+    info(`Installing ${value} ...`);
+    const data = spawn('apt-get', [
       'install',
       '-y',
       value
     ]);
 
     if (program.debug) {
-      io.debug(data);
+      debug(data);
     }
   });
 
-  return io.success('Packages Module Completed Successfully');
+  return success('Packages Module Completed Successfully');
 };

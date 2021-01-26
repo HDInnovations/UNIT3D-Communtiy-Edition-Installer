@@ -1,9 +1,7 @@
 'use strict';
-const program = require('commander');
-const figlet = require('figlet');
-
-const config = require('./config');
-const io = require('./tools/io');
+import program, { version } from 'commander';
+import config from './config';
+import { info, error } from './tools/io';
 
 /*
  | Installer steps, Run the following modules in order from top to bottom.
@@ -20,15 +18,14 @@ const steps = [
   'mysql'
 ];
 
-program
-  .version('1.0.0', '-v, --version')
+version('1.0.0', '-v, --version')
   .option('--debug', 'Run installer in debug mode to show additional output', null, false)
   .option('--disable-ssl', 'Disable SSL', null, false)
   .option('--test', 'Run a test with preconfigured values', null, false)
   .parse(process.argv);
 
-io.info(`UNIT3D Community Edition Installer`);
-io.info(`Version: v1.0.0`);
+info(`UNIT3D Community Edition Installer`);
+info(`Version: v1.0.0`);
 
 const run = async () => {
   for (let file of steps) {
@@ -36,7 +33,7 @@ const run = async () => {
       const mod = require(`./modules/${file}`);
       await mod(config, program);
     } catch (err) {
-      io.error(err);
+      error(err);
       process.exit(1);
     }
   }

@@ -1,12 +1,12 @@
-const io = require('../tools/io');
+import { header, info, spawn, debug, success } from '../tools/io';
 
-module.exports = async (config, program) => {
+export default async (config, program) => {
 
-  io.header('Example Module');
+  header('Example Module');
 
-  io.info('Getting directory contents ...');
-  const data = io.spawn('ls', ['-la']);
-  if (program.debug) io.debug(data);
+  info('Getting directory contents ...');
+  const data = spawn('ls', ['-la']);
+  if (program.debug) debug(data);
 
-  return io.success('Example Module Completed Successfully');
+  return success('Example Module Completed Successfully');
 };

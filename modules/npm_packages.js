@@ -1,16 +1,16 @@
-const io = require('../tools/io');
+import { header, info, spawn, debug, success } from '../tools/io';
 
-module.exports = async (config, program) => {
+export default async (config, program) => {
 
-  io.header('NPM Packages Module');
+  header('NPM Packages Module');
 
   config.npm_packages.forEach(value => {
 
-    io.info(`Globally Installing ${value} ...`);
-    const data = io.spawn('npm', ['install', '-g', value]);
-    if (program.debug) io.debug(data);
+    info(`Globally Installing ${value} ...`);
+    const data = spawn('npm', ['install', '-g', value]);
+    if (program.debug) debug(data);
 
   });
 
-  return io.success('NPM Packages Module Completed Successfully');
+  return success('NPM Packages Module Completed Successfully');
 };
