@@ -19,6 +19,10 @@
   "homepage": "https://github.com/HDInnovations/UNIT3D-Communtiy-Edition-Installer",
   "author": "Poppabear, HDVinnie",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/HDInnovations/UNIT3D-Communtiy-Edition-Installer/issues"
+  },
+  "homepage": "https://github.com/HDInnovations/UNIT3D-Communtiy-Edition-Installer",
   "dependencies": {
     "chalk": "^4.1.0",
     "commander": "^7.0.0",
