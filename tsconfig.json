@@ -1,16 +1,17 @@
 {
   "compilerOptions": {
-    "module": "amd",
+    "module": "CommonJS",
     "moduleResolution": "node",
     "newLine": "LF",
     "sourceMap": true,
     "declaration": true,
     //"noEmit": true,
     "isolatedModules": false,
-    "resolveJsonModule": false,
+    //"resolveJsonModule": false,
     "lib": [
-        "es2017",
-        "esnext"
+        "ES6",
+        "ES2017",
+        "ESNext"
     ],
     "allowJs": false,
     "skipLibCheck": true,

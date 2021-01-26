@@ -15,7 +15,7 @@ export const header = (message: string) => {
   console.log(chalk.magenta('='.repeat(18 + message.length)));
 };
 
-export function spawn (command: string, args = [], options = {}): string {
+export function spawn (command: string, args?: any[], options?: object): string {
   const child = spawnSync(command, args, options);
 
   if (child.status !== null && child.status !== 0) {

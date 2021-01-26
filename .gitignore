@@ -4,3 +4,4 @@ temp.js
 *.js
 /build/installer.js.LICENSE.txt
 *.js.map
+*.d.ts

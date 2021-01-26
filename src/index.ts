@@ -1,4 +1,3 @@
-// @ts-ignore
 import program, { version } from 'commander';
 import {config} from './config';
 import {info, error} from './tools/io';

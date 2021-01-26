@@ -1,7 +1,7 @@
 import { header, info, error, success } from '../tools/io';
 import {ConfigI} from "../config";
 
-export default function (config: ConfigI, _program: any) {
+export default async function (config: ConfigI, _program: any) {
   header('Properties Module');
 
   /* repositories */

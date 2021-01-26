@@ -1,14 +1,14 @@
 import { header, info, spawn, debug, success } from '../tools/io';
 import {ConfigI} from "../config";
 
-export default async (config: ConfigI, program: any) => {
+export default async function (config: ConfigI, program: any) {
 
   header('NPM Packages Module');
 
   config.npm_packages.forEach(value => {
 
     info(`Globally Installing ${value} ...`);
-    const data = spawn('npm', ['install', '-g', value] as never[]);
+    const data = spawn('npm', ['install', '-g', value]);
     if (program.debug) debug(data);
 
   });
