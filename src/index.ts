@@ -1,4 +1,4 @@
-import program, { version } from 'commander';
+import program from 'commander';
 import {config} from './config';
 import {info, error} from './tools/io';
 import properties from "./modules/properties";
@@ -11,7 +11,7 @@ import npm_packages from "./modules/npm_packages";
 import mysql from "./modules/mysql";
 
 function main() {
-    version('1.0.0', '-v, --version')
+    program.version('1.0.0', '-v, --version')
         .option('--debug', 'Run installer in debug mode to show additional output',  false)
         .option('--disable-ssl', 'Disable SSL',  false)
         .option('--test', 'Run a test with preconfigured values',  false)

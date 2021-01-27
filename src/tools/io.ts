@@ -1,18 +1,18 @@
 import {spawnSync} from "child_process"
-import * as chalk from "chalk";
+import {blue, yellow, green, red,cyan, magenta} from "chalk";
 import * as inquirer from "inquirer"
 
-export const debug = (message: string) => console.log(chalk.blue(`[DEBUG] ${message}`));
-export const warning = (message: string) => console.log(chalk.yellow(`[WARN] ${message}`));
-export const success = (message: string) => console.log(chalk.green(`[OK] ${message}`));
-export const error = (message: string) => console.log(chalk.red(`[ERROR] ${message}`));
-export const info = (message: string) => console.log(chalk.cyan(message));
+export const debug = (message: string) => console.log(blue(`[DEBUG] ${message}`));
+export const warning = (message: string) => console.log(yellow(`[WARN] ${message}`));
+export const success = (message: string) => console.log(green(`[OK] ${message}`));
+export const error = (message: string) => console.log(red(`[ERROR] ${message}`));
+export const info = (message: string) => console.log(cyan(message));
 
 export const header = (message: string) => {
   console.log();
-  console.log(chalk.magenta('='.repeat(18 + message.length)));
-  console.log(chalk.magenta(`======== ${message} ========`));
-  console.log(chalk.magenta('='.repeat(18 + message.length)));
+  console.log(magenta('='.repeat(18 + message.length)));
+  console.log(magenta(`======== ${message} ========`));
+  console.log(magenta('='.repeat(18 + message.length)));
 };
 
 export function spawn (command: string, args?: any[], options?: object): string {
