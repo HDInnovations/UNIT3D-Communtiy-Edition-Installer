@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 export DEBIAN_FRONTEND=noninteractive
 
-source tools/colors.sh
+source ./src/tools/colors.sh
 
-rm -rf /var/lib/dpkg/lock
 rm -rf /var/cache/debconf/*.*
 
 echo -e "\n"
@@ -24,9 +23,8 @@ success "OK"
 info "Installing NodeJS and NPM ..."
 curl -sL https://deb.nodesource.com/setup_14.x > "/dev/null" 2>&1 | sudo -E bash -
 apt-get install -qq nodejs > "/dev/null" 2>&1
-npm install > "/dev/null" 2>&1
 success "OK"
 
 header "Launching The Installer ..."
 
-node index.js $@
+node 'build/installer.js' $@

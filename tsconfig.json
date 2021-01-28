@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "newLine": "LF",
+    "sourceMap": true,
+    "declaration": true,
+    //"noEmit": true,
+    "isolatedModules": false,
+    //"resolveJsonModule": false,
+    "lib": [
+        "ES6",
+        "ES2017",
+        "ESNext"
+    ],
+    "allowJs": false,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "rootDir": "./src/"
+  },
+  "include": [
+    "src/*.ts", "src/modules/*.ts", "src/tools/*.ts"
+  ],
+  "exclude": [
+    ".git",
+    "node_modules"
+  ]
+}

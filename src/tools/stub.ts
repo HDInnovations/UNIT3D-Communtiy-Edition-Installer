@@ -1,10 +1,10 @@
-const fs = require('fs');
+import * as fs from "fs";
 
-module.exports.ReadFile = (source) => {
+export const ReadFile = (source: string) => {
   return fs.readFileSync(`./resources/${source}`, 'utf8');
 };
 
-module.exports.WriteFile = (path, source) => {
+export const WriteFile = (path: string, source: string | NodeJS.ArrayBufferView) => {
   fs.writeFileSync(path, source);
 
   try {
@@ -15,7 +15,7 @@ module.exports.WriteFile = (path, source) => {
 
 };
 
-module.exports.Replace = (replace, source) => {
+export const Replace = (replace: any, source: any): any => {
   let _source;
 
   for (const key in Object.keys(replace)) {
