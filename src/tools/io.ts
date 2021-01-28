@@ -1,6 +1,7 @@
 import {spawnSync} from "child_process"
 import {blue, yellow, green, red,cyan, magenta} from "chalk";
 import * as inquirer from "inquirer"
+import {Answers, QuestionCollection} from "inquirer";
 
 export const debug = (message: string) => console.log(blue(`[DEBUG] ${message}`));
 export const warning = (message: string) => console.log(yellow(`[WARN] ${message}`));
@@ -47,7 +48,7 @@ export async function  spawn (command: string, args?: any[], options?: object): 
   return {code: 0, stdout: child.stdout ? child.stdout.toString().trim() : ''}
 }
 
-export async function ask (questions: any[]) {
+export function ask (questions: QuestionCollection<Answers>) {
   return inquirer.prompt(questions);
 }
 

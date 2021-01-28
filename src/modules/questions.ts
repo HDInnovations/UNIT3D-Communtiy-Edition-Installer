@@ -10,7 +10,6 @@ import {
     Length
 } from '../tools/validators';
 import {ip} from '../tools/helpers';
-import {ValidationI} from '../tools/validators'
 import {ConfigI} from "../config";
 
 export interface QuestionI {
@@ -19,7 +18,7 @@ export interface QuestionI {
     message: string
     mask?: string
     choices?: string[]
-    validate?: (input?: any, answers?: any) => ValidationI
+    validate?: (input?: any, answers?: any) => boolean | string | Promise<boolean | string>
     default?: (input?: any) => any
 }
 
@@ -43,7 +42,8 @@ export default async function (config: ConfigI, program: any): Promise<ModuleRes
                     return 'UNIT3D-SERVER';
                 },
                 validate(input) {
-                    return LimitSpecialChars(input);
+                    const r = LimitSpecialChars(input);
+                    return r.valid ?? r.error;
                 },
             },
             {
@@ -54,7 +54,7 @@ export default async function (config: ConfigI, program: any): Promise<ModuleRes
                     return answers.server_name.replace(' ', '-').toLowerCase() + '.com';
                 },
                 validate(input) {
-                    return Domain(input);
+                    return Domain(input).valid;
                 },
             },
             {
@@ -65,7 +65,8 @@ export default async function (config: ConfigI, program: any): Promise<ModuleRes
                     return ip();
                 },
                 validate(input) {
-                    return Ip(input);
+                    const r = Ip(input);
+                    return r.valid ?? r.error;
                 },
             },
             {
@@ -76,7 +77,8 @@ export default async function (config: ConfigI, program: any): Promise<ModuleRes
                     return 'UNIT3D';
                 },
                 validate(input) {
-                    return LimitSpecialChars(input);
+                    const r = LimitSpecialChars(input);
+                    return r.valid ?? r.error;
                 },
             },
             {
@@ -87,7 +89,8 @@ export default async function (config: ConfigI, program: any): Promise<ModuleRes
                     return `${answers.owner_username.toLowerCase()}@${answers.fqdn}`;
                 },
                 validate(input) {
-                    return Email(input);
+                    const r = Email(input);
+                    return r.valid ?? r.error;
                 },
             },
             {
@@ -99,7 +102,8 @@ export default async function (config: ConfigI, program: any): Promise<ModuleRes
                     return program.test ? 'Password1' : '';
                 },
                 validate(input) {
-                    return Password(input);
+                    const r = Password(input);
+                    return r.valid ?? r.error;
                 },
             },
             {
@@ -111,7 +115,8 @@ export default async function (config: ConfigI, program: any): Promise<ModuleRes
                     return program.test ? 'Password1' : '';
                 },
                 validate(input, answers) {
-                    return confirmPassword(input, answers.owner_password);
+                    const r = confirmPassword(input, answers.owner_password);
+                    return r.valid ?? r.error;
                 },
             },
         ],
@@ -124,7 +129,8 @@ export default async function (config: ConfigI, program: any): Promise<ModuleRes
                     return 'unit3d';
                 },
                 validate(input) {
-                    return LimitSpecialChars(input);
+                    const r = LimitSpecialChars(input);
+                    return r.valid ?? r.error;
                 },
             },
             {
@@ -135,7 +141,8 @@ export default async function (config: ConfigI, program: any): Promise<ModuleRes
                     return 'unit3d';
                 },
                 validate(input) {
-                    return LimitSpecialChars(input);
+                    const r = LimitSpecialChars(input);
+                    return r.valid ?? r.error;
                 },
             },
             {
@@ -147,7 +154,8 @@ export default async function (config: ConfigI, program: any): Promise<ModuleRes
                     return program.test ? 'DBPassword1' : '';
                 },
                 validate(input) {
-                    return Password(input);
+                    const r = Password(input);
+                    return r.valid ?? r.error;
                 },
             },
             {
@@ -159,7 +167,8 @@ export default async function (config: ConfigI, program: any): Promise<ModuleRes
                     return program.test ? 'DBPassword1' : '';
                 },
                 validate(input, answers) {
-                    return confirmPassword(input, answers.db_pass);
+                    const r = confirmPassword(input, answers.db_pass);
+                    return r.valid ?? r.error;
                 },
             },
             {
@@ -171,7 +180,8 @@ export default async function (config: ConfigI, program: any): Promise<ModuleRes
                     return program.test ? 'DBRootPass1' : '';
                 },
                 validate(input) {
-                    return Password(input);
+                    const r = Password(input);
+                    return r.valid ?? r.error;
                 },
             },
             {
@@ -183,7 +193,8 @@ export default async function (config: ConfigI, program: any): Promise<ModuleRes
                     return program.test ? 'DBRootPass1' : '';
                 },
                 validate(input, answers) {
-                    return confirmPassword(input, answers.mysql_root_pass);
+                    const r = confirmPassword(input, answers.mysql_root_pass);
+                    return r.valid ?? r.error;
                 },
             },
         ],
@@ -211,7 +222,8 @@ export default async function (config: ConfigI, program: any): Promise<ModuleRes
                     return program.test ? 'domain.com' : '';
                 },
                 validate(input) {
-                    return Domain(input);
+                    const r = Domain(input);
+                    return r.valid ?? r.error;
                 },
             },
             {
@@ -222,7 +234,8 @@ export default async function (config: ConfigI, program: any): Promise<ModuleRes
                     return program.test ? 'Username' : '';
                 },
                 validate(input) {
-                    return LimitSpecialChars(input);
+                    const r = LimitSpecialChars(input);
+                    return r.valid ?? r.error;
                 },
             },
             {
@@ -234,7 +247,8 @@ export default async function (config: ConfigI, program: any): Promise<ModuleRes
                     return program.test ? 'MailPass1' : '';
                 },
                 validate(input) {
-                    return Password(input);
+                    const r = Password(input);
+                    return r.valid ?? r.error;
                 },
             },
             {
@@ -246,18 +260,20 @@ export default async function (config: ConfigI, program: any): Promise<ModuleRes
                     return program.test ? 'MailPass1' : '';
                 },
                 validate(input, answers) {
-                    return confirmPassword(input, answers.mail_password);
+                    const r = confirmPassword(input, answers.mail_password);
+                    return r.valid ?? r.error;
                 },
             },
             {
                 type: 'input',
                 name: 'mail_from',
                 message: 'Mail From ?',
-                default() {
+                async default() {
                     return program.test ? 'Me' : '';
                 },
                 validate(input) {
-                    return NoSpecialChars(input);
+                    const r = NoSpecialChars(input);
+                    return r.valid ?? r.error;
                 },
             },
         ],
@@ -270,7 +286,8 @@ export default async function (config: ConfigI, program: any): Promise<ModuleRes
                     return program.test ? '12345678901234567890123456789012' : '';
                 },
                 validate(input) {
-                    return Length(input, 32);
+                    const r = Length(input, 32);
+                    return r.valid ?? r.error;
                 },
             },
             {
@@ -281,7 +298,8 @@ export default async function (config: ConfigI, program: any): Promise<ModuleRes
                     return program.test ? '12345678901234567890123456789012' : '';
                 },
                 validate(input) {
-                    return Length(input, 32);
+                    const r = Length(input, 32);
+                    return r.valid ?? r.error;
                 },
             },
         ],
