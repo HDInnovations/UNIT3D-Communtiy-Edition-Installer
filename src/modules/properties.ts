@@ -1,34 +1,30 @@
-import { header, info, error, success } from '../tools/io';
+import {header, info, ModuleResultI} from '../tools/io';
 import {ConfigI} from "../config";
 
-export default async function (config: ConfigI, _program: any) {
+export default async function (config: ConfigI, _program: any): Promise<ModuleResultI> {
   header('Properties Module');
 
   /* repositories */
   info('Checking repositories property exists in config ...');
   if (!config.repositories) {
-    error('"repositories" property missing from config.ts');
-    process.exit(1);
+    return {success: false, stdout: "", message: '"repositories" property missing from config.ts'}
   }
 
   info('Checking repositories property is an array ...');
   if (!Array.isArray(config.repositories)) {
-    error('"repositories" property value must be an array of values');
-    process.exit(1);
+    return {success: false, stdout: "", message: '"repositories" property value must be an array of values'};
   }
 
   /* packages */
   info('Checking packages property exists in config ...');
   if (!config.packages) {
-    error('"packages" property missing from config.ts');
-    process.exit(1);
+    return {success: false, stdout: "", message: '"packages" property missing from config.ts'};
   }
 
   info('Checking packages property is an array ...');
   if (!Array.isArray(config.packages)) {
-    error('"packages" property value must be an array of values');
-    process.exit(1);
+    return {success: false, stdout: "", message: '"packages" property value must be an array of values'};
   }
 
-  return success('Properties Module Completed Successfully');
+  return {success: true, stdout: "", message: 'Properties Module Completed Successfully'};
 };

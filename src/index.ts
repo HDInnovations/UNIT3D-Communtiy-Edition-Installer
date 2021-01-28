@@ -1,6 +1,6 @@
 import program from 'commander';
 import {config} from './config';
-import {info, error} from './tools/io';
+import {info, error, debug, success} from './tools/io';
 import properties from "./modules/properties";
 import questions from "./modules/questions";
 import utf8 from "./modules/utf8";
@@ -10,7 +10,7 @@ import composer from "./modules/composer";
 import npm_packages from "./modules/npm_packages";
 import mysql from "./modules/mysql";
 
-function main() {
+async function main() {
     program.version('1.0.0', '-v, --version')
         .option('--debug', 'Run installer in debug mode to show additional output',  false)
         .option('--disable-ssl', 'Disable SSL',  false)
@@ -37,14 +37,23 @@ function main() {
 
     for (let fn of steps) {
         try {
-            fn(config, program);
+            const e = await fn(config, program)
+            // @ts-ignore
+            if (program.debug) {
+                debug(e.stdout);
+            }
+            if (e.success) {
+                success(e.message)
+            } else {
+                error(e.message);
+                process.exit(1);
+            }
         } catch (err) {
             error(err);
-            process.exit(1);
         }
     }
-
-    return true;
 }
-
-main();
+main().catch(e => {
+    error(e)
+    process.exit(1)
+})

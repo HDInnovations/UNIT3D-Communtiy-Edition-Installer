@@ -8,6 +8,23 @@ export const success = (message: string) => console.log(green(`[OK] ${message}`)
 export const error = (message: string) => console.log(red(`[ERROR] ${message}`));
 export const info = (message: string) => console.log(cyan(message));
 
+export interface CommandResultI {
+  code: number
+  stdout: string
+}
+
+export interface ModuleResultI {
+  success: boolean
+  stdout: string
+  message: string
+}
+
+export interface CommandArgsI {
+  cmd: string
+  args: string[]
+  name: string
+}
+
 export const header = (message: string) => {
   console.log();
   console.log(magenta('='.repeat(18 + message.length)));
@@ -15,22 +32,19 @@ export const header = (message: string) => {
   console.log(magenta('='.repeat(18 + message.length)));
 };
 
-export function spawn (command: string, args?: any[], options?: object): string {
+export async function  spawn (command: string, args?: any[], options?: object): Promise<CommandResultI> {
   const child = spawnSync(command, args, options);
-
   if (child.status !== null && child.status !== 0) {
-
-    if (child.error)
-      error(`error.message: ${child.error.message}`);
-
-    // if (child.stderr !== '')
-    //   error(`stderr: ${child.stderr}`);
-
-    error(`Exited with code ${child.status}`);
-    process.exit(child.status);
+    let err = "";
+    if (child.error) {
+      err = `error.message: ${child.error.message}`;
+    } else if (child.stderr.toString() !== '') {
+      err = `stderr: ${child.stderr.toString()}`;
+    }
+    return {code: child.status, stdout: err ?? ""}
   }
 
-  return child.stdout ? child.stdout.toString().trim() : '';
+  return {code: 0, stdout: child.stdout ? child.stdout.toString().trim() : ''}
 }
 
 export async function ask (questions: any[]) {

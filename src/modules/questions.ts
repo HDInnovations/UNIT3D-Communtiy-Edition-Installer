@@ -1,4 +1,4 @@
-import {header, warning, info, ask, error, debug, success} from '../tools/io';
+import {header, warning, info, ask, debug, ModuleResultI} from '../tools/io';
 import {
     LimitSpecialChars,
     Domain,
@@ -23,7 +23,7 @@ export interface QuestionI {
     default?: (input?: any) => any
 }
 
-export default async function (config: ConfigI, program: any) {
+export default async function (config: ConfigI, program: any): Promise<ModuleResultI> {
 
     header('Questions Module');
 
@@ -295,8 +295,7 @@ export default async function (config: ConfigI, program: any) {
             /* Merge these answers into the configuration answers object */
             Object.assign(config.answers, answers);
         } catch(err) {
-            error(err);
-            process.exit(1);
+            return {success: false, stdout: "", message: err.message}
         }
     }
 
@@ -314,13 +313,11 @@ export default async function (config: ConfigI, program: any) {
         ])
 
         if (!answers.install) {
-            error('Aborted ...');
-            process.exit(1);
+            return {success: false, stdout: "", message: "Aborted"}
         }
     } catch (err) {
-        error(err);
-        process.exit(1);
+        return {success: false, stdout: "", message: err}
     }
-    return success('Questions Module Completed Successfully');
+    return {success: false, stdout: "", message: 'Questions Module Completed Successfully'};
 }
 

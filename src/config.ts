@@ -20,7 +20,7 @@ export interface ConfigI {
 
 export const config: ConfigI = {
     /* Main */
-    'github': 'https://github.com/HDInnovations/UNIT3D-Communtiy-Edition.git',
+    'github': 'https://github.com/HDInnovations/UNIT3D-Community-Edition.git',
     'web_user': 'www-data',
     'install_dir': '/var/www/html',
     'mysql_dir': '/etc/mysql',
